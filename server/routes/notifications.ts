@@ -1,9 +1,10 @@
+// server/routes/notification.ts
 import express from "express";
 import webPush from "web-push";
 
 const router = express.Router();
 
-let subscriptions: Array<any> = []; // Use TypeScript's type annotation for the array
+let subscriptions: Array<any> = [];
 
 router.post("/subscribe", (req, res) => {
   const subscription = req.body;
@@ -30,4 +31,4 @@ router.post("/send", (req, res) => {
     });
 });
 
-export default router; // Export the router
+export default router;

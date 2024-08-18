@@ -7,10 +7,13 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const web_push_1 = __importDefault(require("web-push"));
 const notifications_1 = __importDefault(require("./routes/notifications"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
+// Enable CORS for all routes
+app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
-// Replace these with the keys generated
+// Replace these with your VAPID keys
 const vapidKeys = {
     publicKey: "BIWOQIWC9RSpCllvR4TQpoIjeHDItf1wh2UEo-A36i8jQXnNBpYh2-3bRFISOQgrpQJthhpY77-Wt3c6OaoH9iQ",
     privateKey: "6XDPH8RDbYo7eDpQoA1iUBG7sp8fkM__393Q4LE1eXA",

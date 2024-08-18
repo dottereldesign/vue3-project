@@ -3,10 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// server/routes/notification.ts
 const express_1 = __importDefault(require("express"));
 const web_push_1 = __importDefault(require("web-push"));
 const router = express_1.default.Router();
-let subscriptions = []; // Use TypeScript's type annotation for the array
+let subscriptions = [];
 router.post("/subscribe", (req, res) => {
     const subscription = req.body;
     subscriptions.push(subscription);
@@ -26,4 +27,4 @@ router.post("/send", (req, res) => {
         res.sendStatus(500);
     });
 });
-exports.default = router; // Export the router
+exports.default = router;

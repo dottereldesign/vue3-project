@@ -2,13 +2,17 @@ import express from "express";
 import bodyParser from "body-parser";
 import webPush from "web-push";
 import notificationsRouter from "./routes/notifications";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Enable CORS for all routes
+app.use(cors());
+
 app.use(bodyParser.json());
 
-// Replace these with the keys generated
+// Replace these with your VAPID keys
 const vapidKeys = {
   publicKey:
     "BIWOQIWC9RSpCllvR4TQpoIjeHDItf1wh2UEo-A36i8jQXnNBpYh2-3bRFISOQgrpQJthhpY77-Wt3c6OaoH9iQ",
