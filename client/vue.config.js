@@ -1,32 +1,50 @@
-const { defineConfig } = require("@vue/cli-service");
+/* client/src/registerServiceWorker.ts */
+/* eslint-disable no-console */
 
-module.exports = defineConfig({
-  transpileDependencies: true,
+import { register } from "register-service-worker";
 
-  pwa: {
-    name: "Better View",
-    themeColor: "#42b983",
-    msTileColor: "#42b983",
-    appleMobileWebAppCapable: "yes",
-    appleMobileWebAppStatusBarStyle: "black",
-  },
-
-  configureWebpack: {
-    entry: "./src/main.ts",
-    module: {
-      rules: [
-        {
-          test: /\.ts$/,
-          loader: "ts-loader",
-          exclude: /node_modules/,
-          options: {
-            appendTsSuffixTo: [/\.vue$/],
-          },
-        },
-      ],
+if (process.env.NODE_ENV === "production") {
+  register(`${process.env.BASE_URL}service-worker.js`, {
+    ready() {
+      console.log(
+        "App is being served from cache by a service worker.\n" +
+          "For more details, visit https://goo.gl/AFskqB"
+      );
     },
-    resolve: {
-      extensions: [".ts", ".js", ".vue", ".json"],
+    registered() {
+      console.log("Service worker has been registered.");
     },
-  },
-});
+    cached() {
+      console.log("Content has been cached for offline use.");
+    },
+    updatefound() {
+      console.log("New content is downloading.");
+    },
+    updated() {
+      console.log("New content is available; please refresh.");
+    },
+    offline() {
+      console.log(
+        "No internet connection found. App is running in offline mode."
+      );
+    },
+    error(error) {
+      console.error("Error during service worker registration:", error);
+    },
+  });
+
+  // Extend to handle push events
+  navigator.serviceWorker.ready.then((registration) => {
+    registration.addEventListener("push", (event) => {
+      const options = {
+        body: event.data ? event.data.text() : "Default body",
+        icon: "./img/icons/android-chrome-192x192.png",
+        badge: "./img/icons/android-chrome-192x192.png",
+      };
+
+      event.waitUntil(
+        registration.showNotification("Notification Title", options)
+      );
+    });
+  });
+}

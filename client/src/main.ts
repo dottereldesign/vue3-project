@@ -1,7 +1,7 @@
-// src/main.js;
+// src/main.ts;
 import { createApp } from "vue";
 import App from "./App.vue";
-import "./registerServiceWorker"; // Import the service worker
+import "./registerServiceWorker";
 
 createApp(App).mount("#app");
 
